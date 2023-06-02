@@ -1,0 +1,20 @@
+@book{chayes1971ratio,
+   author = {Chayes, Felix},
+   title = {Ratio correlation: a manual for students of petrology and geochemistry},
+   publisher = {University of Chicago Press},
+   ISBN = {0226102203},
+   year = {1971},
+   type = {Book}
+}
+
+@article{pawlowsky1984spurious,
+   author = {Pawlowsky, V},
+   title = {On spurious spatial covariance between variables of constant sum},
+   journal = {Sciences de la terre. Informatique géologique},
+   number = {21},
+   pages = {107-113},
+   ISSN = {0335-9255},
+   year = {1984},
+   type = {Journal Article}
+}
+

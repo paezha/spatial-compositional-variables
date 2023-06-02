@@ -1,0 +1,34 @@
+---
+title: "Statement of problem"
+author: "Antonio Paez"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+Compositional variables are [define and use quick example]. It has long been known that calculating correlations between compositional variables is prone to error, due to the negative covariances that necessarily emerge when the variables sum to a constant [@pearson1896; @chayes1971ratio].
+
+Vera Pawlosky [@pawlowsky1984spurious] discussed the problem of spurious spatial covariance between compositional variables that were regionalized, in other words, collected in space and for whom a georeference was recorded.
+
+Succintly, Pawlosky dealt with this:
+$$
+z(x) = [z_1(x),\cdots,z_D(x)]
+$$
+
+\noindent where:
+$$
+\sum_d^D z_d(x) = 1
+$$
+
+What this means is that a variable that is compositional is georeferenced. For example, components $P$, $Q$, $R$ whose sum is 100% of the composition are measured at location $x$ (typically measured in multiple locations $x_s$, $s=1,\cdots,S$). Let us call this a compositional process that is measured in space. Pawlowsky-Glahn shows how the compositional nature of variable $z(x)$ is associated with 
+
+But there are other problems that can be stated as follows:
+$$
+z = [z(x_1), \cdots,z(x_D)]
+$$
+
+In other words, only one variable is observed at each location, but the variable is compositional _over space_, that is:
+$$
+\sum_d^D z(x_d) = 1
+$$
+
+This is a spatially compositional process.
