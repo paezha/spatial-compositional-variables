@@ -1,0 +1,43 @@
+---
+title: "Statement of problem"
+author: "Antonio Paez"
+date: "`r Sys.Date()`"
+output: pdf_document
+bibliography: bibliography.bib
+---
+
+# Background
+
+Compositional variables are [define and use quick example]. 
+
+It has long been known that calculating correlations between compositional variables is prone to error. In brief, spurious correlations are caused by the negative covariances that necessarily emerge when the variables sum to a constant [@pearson1896spurious; @chayes1971ratio].
+
+Vera Pawlosky [@pawlowsky1984spurious] discussed a related problem that emerges when compositional variables are regionalized, in other words, when they are collected in space and for whom a georeference was recorded. Succintly, this is the situation that Pawlosky dealt with:
+$$
+z(x) = [z_1(x),\cdots,z_D(x)]
+$$
+
+\noindent where:
+$$
+\sum_d^D z_d(x) = k
+$$
+\noindent with $k$ a given constant. What this means is that a variable that is compositional is georeferenced. For example, components $P$, $Q$, $R$ whose sum is 100% of the composition _at_ $x$ are measured, and measurements are made in multiple locations $x_s$, $s=1,\cdots,S$. The sum of the components over locations is not assumed to be a constant in a meaningful way. Pawlowsky calls this a _regionalized composition_; we might call this a _locally compositional process_ to distinguish it from the case that we discuss next. Pawlowsky shows how calculating the autocovariance (spatial covariance) of this locally compositional process $z(x)$ is prone to error and bound to produce spurious autocovariances [@pawlowsky1984spurious, p. 109].
+
+A different problem of interest can be stated as follows:
+$$
+z = [z(x_1), \cdots,z(x_D)]
+$$
+
+In other words, only one variable is observed at each location, but the variable is compositional _over space_, that is:
+$$
+\sum_d^D z(x_d) = 1
+$$
+
+This is a process that is globally compositional over the region of interest. [Give examples].
+
+# Statement of problem
+
+We don't know whether the autocovariance of a globally compositional process is also affected.
+
+# References
+
