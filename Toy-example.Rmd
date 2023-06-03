@@ -1,0 +1,107 @@
+---
+title: "Toy-example"
+output: ''
+date: "2023-06-01"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+install.packages('compositions')
+library(compositions)
+library(dplyr)
+library(spdep)
+```
+
+<!-- compositional definition:  -->
+<!-- 1) Scale invariance: the scale doesn't matter. So for V_i, it should be presented as % of the total. We should only use non-compositional data. -->
+<!-- 2) Permutation invariance: it yields equivalent results when the ordering of the parts in the composition is changed. [50, 40, 10] is equal to [40,50,10].  -->
+<!-- 3) subcompositional coherence: subcompositions should behave like orthogonal projections in conventional real analysis. The size of a projected segment is less than or equal to the size of the segment itself -->
+
+```{r}
+# #Here I create it manually, we can do this easier with built in functions
+# #1. the vector
+# y1 <- 1/6
+# y2 <- 2/6
+# y3 <- 3/6
+# 
+# y <- rbind(y1,y2,y3)
+# sum(y)
+# 
+# 
+# #2. The weight matrix times y
+# w1 <- c(0, 1/2, 0)
+# w2 <- c(1, 0, 1)
+# w3 <- c(0, 1/2, 0)
+# 
+# w <- rbind(w1, w2, w3)
+# 
+# w%*%y
+# w%*%y %>% sum()
+# 
+# #3.Identify matrix
+# i1 <- c(1, 0, 0)
+# i2 <- c(0, 1, 0)
+# i3 <- c(0, 0, 1)
+# 
+# i <- rbind(i1, i2, i3)
+# 
+# i%*%y
+# i%*%y %>% sum()
+```
+
+1. Creating the vector
+```{r}
+#creating empty N row spatial vector
+
+#N=52 when cellsize is 0.19
+N <- 0.19
+sfc <- st_sfc(st_polygon(list(rbind(c(0,0),c(1,0),c(1,1),c(0,1),c(0,0)))))
+hexs.N52.sf <- st_sf(st_make_grid(sfc, cellsize = N, square = FALSE))
+
+#spatial weights matrix W (N*N dimensions)
+W.52 <- as(hexs.N52.sf, "Spatial") %>%
+  poly2nb(queen = FALSE) %>% nb2mat()
+W.52 <- t(t(W.52)/colSums(W.52))
+```
+
+2. Create an identify matrix
+```{r}
+#N*N dimensions
+i <- diag(nrow(W.52))
+```
+
+3. Selecting row and e
+```{r}
+#number between 0 and 1
+row <- 0.3
+
+#N number of rows
+e <- rnorm(n=N, m=0, sd= 1)
+```
+
+4. Calculate y and y sum:
+```{r}
+#solve gives you the inverse. 
+y <- solve(i-row*W.52)%*%e
+y_sum <- y %>% sum()
+```
+
+5. Calculate y tilda:
+```{r}
+y_tilda <- y/y_sum
+y_tilda %>% sum() #check to see if it adds to 1
+
+wy_tilda <- W.52%*%y_tilda
+wy_tilda %>% sum() #check to see if it adds to 1
+```
+
+6. Compute Moran's I... <!-- formatting issues here, so stuck at this step-->:
+```{r} 
+localmoran(y_tilda %>% as.vector(),
+           listw = W.52)
+```
+
+
